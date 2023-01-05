@@ -8,12 +8,48 @@ using System.Linq;
 
 namespace SHPA.App.Utils
 {
+	/// <summary>
+	/// Extensions class
+	/// </summary>
 	public static class Extensions
 	{
-		
+		/// <summary>
+		/// Exports a list of records into a csv file.
+		/// </summary>
+		/// <param name="records">
+		/// The desired records to export.
+		/// </param>
+		/// <param name="outputPath">
+		/// The path to the output file.
+		/// </param>
+		/// <returns>
+		/// True if the operation was successful and false if the operation failed.
+		/// </returns>
 		public static bool ExportToCsv(this List<Record> records, string outputPath) => Export.CsvTools.ExportDataTableToCsv(records.ToDataTable(), outputPath);
-		public static bool ExportToCsv(this DataTable dataTable, string outputPath) => Export.CsvTools.ExportDataTableToCsv(dataTable, outputPath);
 
+		/// <summary>
+		/// Exports a data table into a csv file.
+		/// </summary>
+		/// <param name="dataTable">
+		/// The desired data table to export.
+		/// </param>
+		/// <param name="outputPath">
+		/// The path to the output file.
+		/// </param>
+		/// <returns>
+		/// True if the operation was successful and false if the operation failed.
+		/// </returns>
+		public static bool ExportToCsv(this DataTable dataTable, string outputPath) => Export.CsvTools.ExportDataTableToCsv(dataTable, outputPath);
+		
+		/// <summary>
+		/// Converts a list of records to a data table.
+		/// </summary>
+		/// <param name="records">
+		/// The desired list of records to convert.
+		/// </param>
+		/// <returns>
+		/// The data table of the list of records.
+		/// </returns>
 		public static DataTable ToDataTable(this List<Record> records)
 		{
 			var dailyRecords = records.GroupBy(rec => rec.DateTime.Date);
@@ -109,6 +145,15 @@ namespace SHPA.App.Utils
 			return exportTable;
 		}
 
+		/// <summary>
+		/// Converts the <see cref="DayOfWeek"/> to the persian day of week.
+		/// </summary>
+		/// <param name="date">
+		/// The day of week.
+		/// </param>
+		/// <returns>
+		/// The string representing the persian day of week.
+		/// </returns>
 		public static string GetPersianDayOfWeek(this DayOfWeek date)
 		{
 			switch (date)
@@ -132,6 +177,16 @@ namespace SHPA.App.Utils
 
 			}
 		}
+
+		/// <summary>
+		/// Translates the <see cref="WorkType"/> to persian.
+		/// </summary>
+		/// <param name="type">
+		/// The work type.
+		/// </param>
+		/// <returns>
+		/// the string of the translated work type.
+		/// </returns>
 		public static string GetPersianWorkType(this WorkType type)
 		{
 			switch (type)
@@ -150,6 +205,15 @@ namespace SHPA.App.Utils
 
 			}
 		}
+		/// <summary>
+		/// Strips the seconds out of <see cref="TimeSpan"/>.
+		/// </summary>
+		/// <param name="time">
+		/// The timespan.
+		/// </param>
+		/// <returns>
+		/// The timespan without the seconds.
+		/// </returns>
 		public static TimeSpan StripSeconds(this TimeSpan time) => new(time.Hours, time.Minutes, 0);
 		
 
